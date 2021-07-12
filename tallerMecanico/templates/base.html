@@ -1,0 +1,201 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/020d540d39.js" crossorigin="anonymous"></script>
+
+    {% block css %}
+
+    {% endblock css %}
+
+
+
+    {% block titulo %}
+
+    {% endblock titulo %}
+
+</head>
+
+<body class="body-index">
+    <!--========================================================== -->
+    <!-- ENCABEZADO -->
+    <!--========================================================== -->
+    <header class="container-fluid bg-primary d-flex justify-content-center">
+        <p class="text-light mb-0 p-2 fs-6">Contactanos 1-(305)-725-1000</p>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-3" id="menu">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'INDEX' %}">RayoMcqueen</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'INDEX' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'TRABAJOS' %}">Trabajos</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Formularios
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="formularios">
+                            <li><a class="dropdown-item" href="{% url 'REGISTRARSE' %}">Registrarse</a></li>
+                            <li><a class="dropdown-item" href="{% url 'INICIAR' %}">Iniciar Sesion</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-primary btn-primary-outline-success" type="button">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!--========================================================== -->
+    <!-- SLIDER DE IMAGENES-->
+    <!--========================================================== -->
+
+    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="3000">
+                <img src="{% static 'img/reparacion_neumatico.jpg' %}" class="d-block w-100" height="550" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="fw-bold">Cambio de neumatico</h5>
+                    <p class="fw-bold">Reparacion o cambio de los neumaticos averiados.</p>
+                    <a href="{% url 'MANTENCION1' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
+                </div>
+            </div>
+
+
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="{% static 'img/cambio_aceite.jpg' %}" class="d-block w-100" height="550" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="fw-bold">Cambio de aceite</h5>
+                    <p class="fw-bold">Renovacion del aceite del vehiculo para mantener el motor en buen estado.</p>
+                    <a href="{% url 'MANTENCION2' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
+                </div>
+            </div>
+
+
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="{% static 'img/Alineacion.jpg' %}" class="d-block w-100" height="550" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="fw-bold">Alineacion y balanceo</h5>
+                    <p class="fw-bold">Se procede a alinear y balancear las llantas para que giren sin tener vibraciones
+                        a
+                        determinadas velocidades.</p>
+                    <a href="{% url 'MANTENCION3' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="{% static 'img/scanner.jpg' %}" class="d-block w-100" height="550" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="fw-bold">Scanner</h5>
+                    <p class="fw-bold">El scanner Automotriz es una herramienta que nos permite detectar las fallas
+                        electricas de
+                        un vehiculo.</p>
+                    <a href="{% url 'MANTENCION4' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="{% static 'img/limpieza.jpg' %}" class="d-block w-100" height="550" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="fw-bold">Limpieza</h5>
+                    <p class="fw-bold">Se hace un aseo profundo del vehiculo para dejarlo como nuevo.</p>
+                    <a href="{% url 'MANTENCION5' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
+                </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="3000">
+                <img src="{% static 'img/kilometraje.jpg' %}" class="d-block w-100" height="550" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="fw-bold">Revision del kilometraje</h5>
+                    <p class="fw-bold">Recomendamos periodimante hacer una revision del kilometraje de tu vehiculo donde
+                        examinamos el funcionamiento general de tu auto.</p>
+                    <a href="{% url 'MANTENCION6' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
+                </div>
+            </div>
+
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+
+    <!--========================================================== -->
+    <!-- INTRODUCCION DE SERVICIOS-->
+    <!--========================================================== -->
+
+
+    <section class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto"
+        id="intro">
+        <h1 class="p-3 fs-2 border-top border-3">Una agencia automotora única para todas tus necesidades de <span
+                class="text-primary">Mantencion Automotriz<span /></h1>
+        <p class="p-3  fs-4">
+            <span class="text-primary">RayoMcqueen.</span> es la agencia donde te ayudamos a resolver los problemas de
+            tu
+            auto, moto o camioneta.
+        </p>
+    </section>
+
+
+
+    {% block contenido %}
+
+    {% endblock contenido %}
+
+    {% block galeria %}
+
+    {% endblock galeria %}
+
+
+
+
+    <!--========================================================== -->
+    <!--FOOTER-->
+    <!--========================================================== -->
+
+
+    <footer class="w-100  d-flex  align-items-center justify-content-center flex-wrap">
+        <p class="fs-5 px-3  pt-3">RayoMcqueen. &copy; Todos Los Derechos Reservados 2021</p>
+        <div id="iconos">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+        </div>
+    </footer>
+
+    {% block scripst %}
+
+    {% endblock scripst %}
+
+</body>
+
+</html>
