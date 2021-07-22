@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block titulo %}
-<title>Repuestos Disponibles</title>
+<title>Detalle Repuestos</title>
 {% endblock titulo %}
 
 {% block css %}
@@ -16,45 +16,28 @@
 {% block galeria %}
 
 <!--========================================================== -->
-<!--GALERIA DE LOS REPUESTOS-->
+<!--DETALLE DE LOS REPUESTOS-->
 <!--========================================================== -->
 
 <section id="galeria" class="container">
     <div class="text-center text-dark pt-5">
-        <h1 class="fw-bold">Repuestos Disponibles</h1>
+        <h1 class="fw-bold">Detalle de los Repuestos</h1>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur repellendus, facere voluptatem ipsa
             cum quasi est in natus fugit commodi aliquid incidunt perferendis accusantium rem eius nisi a itaque
             aspernatur.</p>
     </div>
-    <div class="container  border-top" style="max-width: 500px" id="contenedor-formulario">
-        <form action="{% url 'VENTAS' %}" method="POST" enctype="multipart/form-data">
-            <h3 class="text-center text-dark pt-5 mb-4">Filtro por Marca</h3>
-            <div class="mb-3">
-                <select class="form-select" id="cboCategoria" name="cboCategoria">
-                    {% for reg in marca %}
-                    <option>{{reg.nombre}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <button type="submit" class=" btn btn-primary w-100 fs-5">Filtrar</button>
-            </div>
-        </form>
-    </div>
-    <div class="row">
-        {% for reg in repuestos %}
+    <div class="row d-flex flex-column justify-content-center align-items-center">
         <div class="col-lg-4 col-md-6 col-sm-12">
             <a href="{{reg.imagen.url}}" data-lightbox="mecanicos">
-                <img src="{{reg.imagen.url}}" alt="">
+                <img src="{{repuesto.imagen.url}}" alt="">
             </a>
-            <div class="d-flex flex-column justify-content-center align-items-center">
-                <h4 class="text-dark fw-bold">{{reg.nombre}}</h4>
-                <a href="{% url 'DETA_REPUES' reg.nombre %}" class="btn btn-primary fw-bold text-light">Ver
-                    Detalle...</a>
-            </div>
+            <h4 class="text-primary fw-bold">Nombre: <span class="text-dark fw-bold">{{repuesto.nombre}}</span></h4>
+            <h4 class="text-primary fw-bold">Precio: <span class="text-dark fw-bold">{{repuesto.precio}}</span></h4>
+            <h4 class="text-primary fw-bold">Descripcion: <span
+                    class="text-dark fw-bold">{{repuesto.descripcion}}</span></h4>
+            <h4 class="text-primary fw-bold">Marca Repuestos: <span class="text-dark fw-bold">{{repuesto.marcas}}</span>
+            </h4>
         </div>
-        {% endfor %}
     </div>
 </section>
 {% endblock galeria %}

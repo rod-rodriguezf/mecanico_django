@@ -22,9 +22,14 @@ def iniciar(request):
 
 def galeria_ventas(request):
     repuestos = Repuesto.objects.all()
-    contexto = {"repuestos":repuestos}
+    marca = Marca.objects.all()
+    contexto = {"repuestos":repuestos, "marca":marca}
     return render(request, "galeria_ventas.html",contexto)
 
+def detalle_repuestos(request, id):
+    repuesto = Repuesto.objects.get(nombre=id)
+    contexto = {"repuesto":repuesto}
+    return render(request, "ficha.html", contexto)
 
 def ventas_repuestos(request):
     marca = Marca.objects.all()
