@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import index, trabajos, registrarse, iniciar, mantencion1, mantencion2, mantencion3, mantencion4, mantencion5, mantencion6, ventas_repuestos
+from .views import galeria_ventas, index, trabajos, registrarse, iniciar, mantencion1, mantencion2, mantencion3, mantencion4, mantencion5, mantencion6, ventas_repuestos, galeria_ventas
 
 urlpatterns = [
     path('', index, name='INDEX'),
@@ -14,5 +14,6 @@ urlpatterns = [
     path('mantencion4/', mantencion4, name='MANTENCION4'),
     path('mantencion5/', mantencion5, name='MANTENCION5'),
     path('mantencion6/', mantencion6, name='MANTENCION6'),
+    path('res_dispó/', galeria_ventas, name='GALE_VENTAS'),
     
 ]

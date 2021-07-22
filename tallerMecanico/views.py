@@ -20,6 +20,12 @@ def iniciar(request):
     return render(request, "iniciarSesion.html")
 
 
+def galeria_ventas(request):
+    repuestos = Repuesto.objects.all()
+    contexto = {"repuestos":repuestos}
+    return render(request, "galeria_ventas.html",contexto)
+
+
 def ventas_repuestos(request):
     marca = Marca.objects.all()
     contexto = {"marca": marca}
@@ -28,11 +34,13 @@ def ventas_repuestos(request):
         precio = request.POST.get("txtPrecio")
         desc = request.POST.get("txtDesc")
         cate = request.POST.get("cboCategoria")
+        imagen = request.FILES.get("txtmg")
         object_categoria = Marca.objects.get(nombre=cate)
         rep = Repuesto(
             nombre=nombre,
             precio=precio,
             descripcion=desc,
+            imagen=imagen,
             marcas=object_categoria
         )
         rep.save()
