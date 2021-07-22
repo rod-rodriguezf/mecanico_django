@@ -1,4 +1,4 @@
-from tallerMecanico.models import Marca, Repuesto
+from .models import Marca, Repuesto
 from django.shortcuts import render
 
 # Create your views here.
@@ -20,26 +20,22 @@ def iniciar(request):
     return render(request, "iniciarSesion.html")
 
 
-def ventas(request):
+def ventas_repuestos(request):
     marca = Marca.objects.all()
     contexto = {"marca": marca}
     if request.POST:
         nombre = request.POST.get("txtNombre")
         precio = request.POST.get("txtPrecio")
         desc = request.POST.get("txtDesc")
-        cate = request.POST.get("cboMarca")
-        obj_marca = Marca.objects.get(nombre=cate)
-        imagen = request.FILES.get("formFile")   
-
-        repu = Repuesto(
+        cate = request.POST.get("cboCategoria")
+        object_categoria = Marca.objects.get(nombre=cate)
+        rep = Repuesto(
             nombre=nombre,
             precio=precio,
             descripcion=desc,
-            marcas=obj_marca,
-            imagen=imagen
+            marcas=object_categoria
         )
-        repu.save()
-        contexto = {"marca": marca, "mensaje":"grabo"}
+        rep.save()
     return render(request, "ventas.html", contexto)
 
 
