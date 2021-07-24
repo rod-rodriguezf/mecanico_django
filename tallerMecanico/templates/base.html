@@ -50,12 +50,34 @@
                         <a class="nav-link" href="{% url 'TRABAJOS' %}">Trabajos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'VENTAS' %}">Ventas</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'GALE_VENTAS' %}">galeria repuestos</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Marcas de Repuestos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="formularios">
+                            <li><a class="dropdown-item" href="{% url 'FILTRO_MARC' 'Toyota' %}">Toyota</a></li>
+                            <li><a class="dropdown-item" href="{% url 'FILTRO_MARC' 'Audi' %}">Audi</a></li>
+                            <li><a class="dropdown-item" href="{% url 'FILTRO_MARC' 'Nissan' %}">Nissan</a></li>
+                            <li><a class="dropdown-item" href="{% url 'FILTRO_MARC' 'Peugeot' %}">Peugeot</a></li>
+                        </ul>
+                    </li>
 
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'VENTAS' %}">Adm. Repuestos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'CERRAR_SESION' %}">Cerrar Sesion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Bienvenido: {{user.first_name}} {{user.last_name}}</a>
+                    </li>
+                    
+                    {% else %}
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,11 +88,11 @@
                             <li><a class="dropdown-item" href="{% url 'INICIAR' %}">Iniciar Sesion</a></li>
                         </ul>
                     </li>
+                    {% endif %}
+
+
+
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-primary btn-primary-outline-success" type="button">Buscar</button>
-                </form>
             </div>
         </div>
     </nav>
@@ -198,10 +220,26 @@
             <a href="#"><i class="bi bi-instagram"></i></a>
         </div>
     </footer>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+    {% block JS %}
+
+    {% endblock JS %}
 
     {% block scripst %}
 
     {% endblock scripst %}
+
 
 </body>
 

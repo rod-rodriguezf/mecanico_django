@@ -24,38 +24,41 @@
 
 
 
-  <form action="">
+  <form action="" method="POST" onsubmit="return validarPass()">
+    {% csrf_token %}
     <div class="mb-3">
-      <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com">
+      <input type="input" class="form-control" id="txtUsuario" name="txtUsuario" placeholder="ingrese Usuario">
+    </div>
+    <div class="mb-3">
+      <input type="input" class="form-control" id="txtNombre" name="txtNombre" placeholder="ingrese Nombre">
+    </div>
+    <div class="mb-3">
+      <input type="input" class="form-control" id="txtApellido" name="txtApellido" placeholder="ingrese Apeliido">
+    </div>
+    <div class="mb-3">
+      <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="nombre@ejemplo.com">
+    </div>
+
+    <div class="mb-3">
+      <input type="password" class="form-control" id="txtPass1" name="txtPass1" placeholder="ingrese password">
+    </div>
+
+    <div class="mb-3">
+      <input type="password" class="form-control" id="txtPass2" name="txtPass2" placeholder="Comfirme password">
     </div>
 
 
     <div class="mb-3">
-      <input type="input" class="form-control" id="nombre" placeholder="Nombre y Apeliido">
-    </div>
-
-
-    <div class="mb-3">
-      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Teléfono">
-    </div>
-
-    <div class="mb-3">
-      <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="password">
-    </div>
-
-    <div class="mb-3">
-      <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Comfirme password">
-    </div>
-
-
-    <div class="mb-3">
-      <button type="button" class=" btn btn-primary w-100 fs-5">Crear Usuario</button>
+      <button type="submit" class=" btn btn-primary w-100 fs-5">Crear Usuario</button>
     </div>
   </form>
 
 </div>
-
 </section>
+
+
+<!--{% url 'REGISTRARSE' %}-->
+
 {% endblock contenido %}
 
 
@@ -64,4 +67,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+<script src="{% static 'js/validarPass.js' %}"></script>
 {% endblock scripst %}
+
+{% block js %}
+<script>
+  Function validarPass() {
+    var pass1 = document.getElementById("txtPass1").Value;
+    var pass2 = document.getElementById("txtPass2").Value;
+    if (pass1 != pass2) {
+      alert("las contraseñas no coinciden");
+      return false;
+    }
+    return true;
+  }
+</script>
+{% endblock js %}

@@ -15,38 +15,35 @@
 <!--========================================================== -->
 <!-- CONTENEDOR DEL FORMULARIO -->
 <!--========================================================== -->
+<section>
+  <div class="container  border-top border-primary " style="max-width: 500px" id="contenedor-formulario">
+    <div class="text-center mb-4" id="titulo-formulario">
+      <div><img src="{% static 'img/iniciar.jpg' %}" alt="" class="img-fluid ps-5"></div>
+      <h2>Inicia Sesion</h2>
+      <p class="fs-5">Estamos aqui para solucionar tus problemas</p>
+    </div>
 
-<div class="container  border-top border-primary " style="max-width: 500px" id="contenedor-formulario">
-  <div class="text-center mb-4" id="titulo-formulario">
-    <div><img src="{% static 'img/iniciar.jpg' %}" alt="" class="img-fluid ps-5"></div>
-    <h2>Inicia Sesion</h2>
-    <p class="fs-5">Estamos aqui para solucionar tus problemas</p>
+
+
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="mb-3">
+        <input type="text" class="form-control" name="txtUsuario" id="txtUsuario" placeholder="Ingrese usuario">
+      </div>
+
+      <div class="mb-3">
+        <input type="password" class="form-control" name="txtPassword" id="txtPassword" placeholder="Ingrese password">
+      </div>
+
+      <div class="mb-3">
+        <button type="submit" class=" btn btn-primary w-100 fs-5">Iniciar Sesion</button>
+      </div>
+    </form>
+
   </div>
 
-
-
-  <form action="">
-    <div class="mb-3">
-      <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com">
-    </div>
-
-    <div class="mb-3">
-      <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="password">
-    </div>
-
-    <div class="mb-3">
-      <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Comfirme password">
-    </div>
-
-
-    <div class="mb-3">
-      <button type="button" class=" btn btn-primary w-100 fs-5">Iniciar Sesion</button>
-    </div>
-  </form>
-
-</div>
-
 </section>
+<div class="mb-3 fw-bold text-center fs-6 text-danger">{{mensaje}}</div>
 {% endblock contenido %}
 
 

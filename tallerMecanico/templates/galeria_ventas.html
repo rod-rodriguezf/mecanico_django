@@ -27,8 +27,9 @@
             aspernatur.</p>
     </div>
     <div class="container  border-top" style="max-width: 500px" id="contenedor-formulario">
-        <form action="{% url 'VENTAS' %}" method="POST" enctype="multipart/form-data">
-            <h3 class="text-center text-dark pt-5 mb-4">Filtro por Marca</h3>
+        <form action="{% url 'FILTRO_MARCA' %}" method="POST">
+            {% csrf_token %}
+            <h3 class="text-center text-dark pt-5 mb-4">Filtro por Marca del Repuesto</h3>
             <div class="mb-3">
                 <select class="form-select" id="cboCategoria" name="cboCategoria">
                     {% for reg in marca %}
@@ -41,6 +42,20 @@
                 <button type="submit" class=" btn btn-primary w-100 fs-5">Filtrar</button>
             </div>
         </form>
+
+        <form action="{% url 'BUSCAR_REP' %}" method="POST">
+            {% csrf_token %}
+            <h3 class="text-center text-dark pt-5 mb-4">Buscar por Nombre del Repuesto </h3>
+            <div class="mb-3">
+                <input class="form-control" type="text" name="txtNombre" id="txtNombre" placeholder="Buscar Repuestos"
+                    aria-label="Search">
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class=" btn btn-primary w-100 fs-5">Buscar Repuesto</button>
+            </div>
+        </form>
+
     </div>
     <div class="row">
         {% for reg in repuestos %}
@@ -57,12 +72,19 @@
         {% endfor %}
     </div>
 </section>
+<div class="mb-3">
+    <h3 class="text-center text-dark pt-5 mb-4">La cantidad de Repuestos Encontrados son: <span
+            class="text-primary">{{cantidad}}</span></h3>
+</div>
 {% endblock galeria %}
 
 
+
 {% block scripst %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script>
 <script src="{% static 'dist/js/lightbox-plus-jquery.js' %}"></script>
 {% endblock scripst %}
