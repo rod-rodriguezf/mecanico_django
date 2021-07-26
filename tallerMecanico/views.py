@@ -1,4 +1,4 @@
-from .models import Marca, Repuesto
+from .models import Marca, Repuesto, Galeria
 from django.shortcuts import render
 
 # IMPORTAR EL MODELO DE TABLA DE USUARIO DESDE EL ADMINISTRADOR
@@ -108,6 +108,8 @@ def buscar_repuesto(request):
 def detalle_repuestos(request, id):
     repuesto = Repuesto.objects.get(nombre=id)
     contexto = {"repuesto": repuesto}
+    galeria = Galeria.objects.filter(repuesto=repuesto)
+    contexto["galeria"] = galeria
     return render(request, "ficha.html", contexto)
 
 
@@ -121,7 +123,7 @@ def ventas_repuestos(request):
         precio = request.POST.get("txtPrecio")
         desc = request.POST.get("txtDesc")
         cate = request.POST.get("cboCategoria")
-        imagen = request.FILES.get("txtmg")
+        imagen = request.FILES.get("txtImg")
         object_categoria = Marca.objects.get(nombre=cate)
         rep = Repuesto(
             nombre=nombre,
@@ -147,7 +149,7 @@ def ventas_repuestos(request):
 def eliminar(request, id):
     try:
         rep = Repuesto.objects.get(nombre=id)
-        rep.detele()
+        rep.delete()
         mensaje = "se elimino un registro"
     except:
         mensaje = "no se elimino el registro"
@@ -184,7 +186,7 @@ def modificar(request):
         precio = request.POST.get("txtPrecio")
         desc = request.POST.get("txtDesc")
         cate = request.POST.get("cboCategoria")
-        imagen = request.FILES.get("txtmg")
+        imagen = request.FILES.get("txtImg")
         object_categoria = Marca.objects.get(nombre=cate)
         try:
             rep = Repuesto.objects.get(nombre=nombre)
@@ -196,6 +198,7 @@ def modificar(request):
                 rep.imagen = imagen
 
             rep.comentario = '--'
+            rep.publicar = False
             rep.save()
             mensaje = "Modifico"
         except:
@@ -212,6 +215,7 @@ def vender_rep(request, id):
         rep = Repuesto.objects.filter(publicar=True).get(nombre=id)
         rep.duenno = request.user.username
         rep.publicar = False
+        mensaje='--'
         rep.save()
         mensaje = "Gracias por su compra"
     except:
@@ -240,3 +244,25 @@ def devolver(request, id):
     repuesto = Repuesto.objects.filter(duenno=request.user.username)
     contexto = {"repuesto": repuesto, "mensaje": mensaje}
     return render(request, "admin_user.html", contexto)
+
+
+def insertar_galeria(request):
+    mensaje = ""
+    if request.POST:
+        nom_repuesto = request.POST.get("txtRepuesto")
+        imagen = request.FILES.get("txtImg")
+
+        object_rep = Repuesto.objects.get(nombre=nom_repuesto)
+        gale = Galeria()
+        gale.imagen=imagen
+        gale.repuesto = object_rep
+        gale.save()
+        mensaje="Se guardo imagen en la galeria para el repuesto: "+nom_repuesto
+
+    marca = Marca.objects.all()
+    usuario_actual = request.user.username
+    repuestos = Repuesto.objects.filter(usuario=usuario_actual)
+    cant = Repuesto.objects.filter(usuario=usuario_actual).count()
+    contexto = {"marca": marca, "mensaje": mensaje,
+                "repuestos": repuestos, "cant": cant}
+    return render(request, "ventas.html", contexto)

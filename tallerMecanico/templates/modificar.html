@@ -53,8 +53,8 @@
             <div class="mb-3">
                 <select class="form-select" id="cboCategoria" name="cboCategoria">
                     {% for item in marca %}
-                    {% if item.nombre == repuesto.nombre %}
-                    <option select>{{item.nombre}}</option>
+                    {% if item.nombre == repuesto.marcas.nombre %}
+                    <option selected>{{item.nombre}}</option>
                     {% else %}
                     <option>{{item.nombre}}</option>
                     {% endif %}
@@ -65,7 +65,7 @@
 
             <div class="mb-3">
                 imagen actual: <a href="{{repuesto.imagen.url}}">{{repuesto.imagen.url}}</a>
-                <input class="form-control" type="file" id="txtmg" name="txtmg">
+                <input class="form-control" type="file" id="txtImg" name="txtImg">
             </div>
 
 

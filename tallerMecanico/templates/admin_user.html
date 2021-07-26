@@ -50,7 +50,7 @@
                 <td><img class="" src="{{item.imagen.url}}" alt="" width="100px" height="100px"></td>
                 <td>
                     <div class="mb-3">
-                        <button type="submit" class=" btn btn-danger w-100 fs-6" id="eliminar" value="eliminar"
+                        <button type="submit" class=" btn btn-danger w-100 fs-6" id="devolver" value="devolver"
                             onclick="devolver('{{item.nombre}}')">Devolver</button>
                     </div>
                 </td>
@@ -60,12 +60,9 @@
         </tbody>
     </table>
 </div>
-
-{% endblock contenido %}
-<!--
 <script>
-    Function devolver(nombre) {
-        var opcion = confirm("desea devolver el Producto " + nombre + "?");
+    function devolver(nombre) {
+        var opcion = confirm("desea devolver el Producto ") + nombre + "?";
         if (opcion == true) {
             location.href = '/devolver/' + nombre + '/';
         }
@@ -73,13 +70,11 @@
     }
 </script>
 
--->
-{% block JS %}
+{% endblock contenido %}
 
 
 
 
-{% endblock JS %}
 
 
 

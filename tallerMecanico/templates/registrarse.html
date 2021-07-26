@@ -30,24 +30,26 @@
   <form action="{% url 'REGISTRARSE' %}" method="POST" onsubmit="return validarPass()">
     {% csrf_token %}
     <div class="mb-3">
-      <input type="input" class="form-control" id="txtUsuario" name="txtUsuario" placeholder="ingrese Usuario">
+      <input type="input" class="form-control" id="txtUsuario" name="txtUsuario" placeholder="ingrese Usuario" required>
     </div>
     <div class="mb-3">
-      <input type="input" class="form-control" id="txtNombre" name="txtNombre" placeholder="ingrese Nombre">
+      <input type="input" class="form-control" id="txtNombre" name="txtNombre" placeholder="ingrese Nombre" required>
     </div>
     <div class="mb-3">
-      <input type="input" class="form-control" id="txtApellido" name="txtApellido" placeholder="ingrese Apeliido">
+      <input type="input" class="form-control" id="txtApellido" name="txtApellido" placeholder="ingrese Apeliido"
+        required>
     </div>
     <div class="mb-3">
-      <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="nombre@ejemplo.com">
-    </div>
-
-    <div class="mb-3">
-      <input type="password" class="form-control" id="txtPass1" name="txtPass1" placeholder="ingrese password">
+      <input type="email" class="form-control" id="txtEmail" name="txtEmail" placeholder="nombre@ejemplo.com" required>
     </div>
 
     <div class="mb-3">
-      <input type="password" class="form-control" id="txtPass2" name="txtPass2" placeholder="Comfirme password">
+      <input type="password" class="form-control" id="txtPass1" name="txtPass1" placeholder="ingrese password" required>
+    </div>
+
+    <div class="mb-3">
+      <input type="password" class="form-control" id="txtPass2" name="txtPass2" placeholder="Comfirme password"
+        required>
     </div>
 
 
@@ -57,7 +59,17 @@
   </form>
 
 </div>
-
+<script>
+  function validarPass() {
+    var pass1 = document.getElementById('txtPass1').Value;
+    var pass2 = document.getElementById('txtPass2').Value;
+    if (pass1 != pass2) {
+      alert('las contraseñas no coinciden');
+      return false;
+    }
+    return true;
+  }
+</script>
 </section>
 
 
@@ -73,18 +85,3 @@
 <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 <script src="{% static 'js/validarPass.js' %}"></script>
 {% endblock scripst %}
-<!--
-{% block js %}
-<script>
-  Function validarPass() {
-    var pass1 = document.getElementById("txtPass1").Value;
-    var pass2 = document.getElementById("txtPass2").Value;
-    if (pass1 != pass2) {
-      alert("las contraseñas no coinciden");
-      return false;
-    }
-    return true;
-  }
-</script>
-{% endblock js %}
--->

@@ -50,9 +50,29 @@
     </div>
 </section>
 <div class="mb-3">
-    <h3 class="text-center text-dark pt-5 mb-4"><span
-            class="text-primary">{{mensaje}}</span></h3>
+    <h3 class="text-center text-dark pt-5 mb-4"><span class="text-primary">{{mensaje}}</span></h3>
 </div>
+<!--========================================================== -->
+<!--GALERIA DE LAS MANTENCIONES-->
+<!--========================================================== -->
+
+<section id="galeria" class="container">
+    <div class="text-center text-dark pt-5">
+        <h1 class="fw-bold">Galeria</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur repellendus, facere voluptatem ipsa
+            cum quasi est in natus fugit commodi aliquid incidunt perferendis accusantium rem eius nisi a itaque
+            aspernatur.</p>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            {% for reg in galeria %}
+            <a href="{{reg.imagen.url}}" data-lightbox="mecanicos">
+                <img src="{{reg.imagen.url}}" alt="">
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 {% endblock galeria %}
 
 

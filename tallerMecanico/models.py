@@ -24,3 +24,14 @@ class Repuesto(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+class Galeria(models.Model):
+    auto_inc = models.AutoField(primary_key=True)
+    imagen = models.ImageField(upload_to='galeria')
+    repuesto = models.ForeignKey(Repuesto,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "numero"+str(self.auto_inc)
+    
+

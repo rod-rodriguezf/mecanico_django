@@ -60,7 +60,7 @@
 
 
             <div class="mb-3">
-                <input class="form-control" type="file" id="txtmg" name="txtmg">
+                <input class="form-control" type="file" id="txtImg" name="txtImg">
             </div>
 
 
@@ -99,13 +99,19 @@
                 <td>{{item.marcas}}</td>
                 <td><img class="" src="{{item.imagen.url}}" alt="" width="100px" height="100px"></td>
                 <td>
-                    <div class="mb-3">
-                        <button type="submit" class=" btn btn-primary w-100 fs-6"
+                    <div class="mb-1">
+                        <button type="submit" class=" btn btn-primary w-100 fs-6" id="modificar" name="modificar"
                             onclick="modificar('{{item.nombre}}')">Modificar</button>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-1">
                         <button type="submit" class=" btn btn-danger w-100 fs-6" id="eliminar" value="eliminar"
                             onclick="eliminar('{{item.nombre}}')">Eliminar</button>
+                    </div>
+                    <div class="mb-1">
+                        <button type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            class=" btn btn-warning w-100 fs-6" id="txtImg" value="txtImg"
+                            onclick="galeria('{{item.nombre}}')">Agregar
+                            Imagen</button>
                     </div>
                 </td>
                 <td class="p-3">
@@ -126,14 +132,43 @@
         </tbody>
     </table>
 </div>
+<div>
 
-{% endblock contenido %}
-<!--
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar imagen de Repuesto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{% url 'INSERT' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <p>Seleccione una imagen para el Repuesto:
+                        <div class="text-primary" id="nom_repuesto"></div>
+                        </p>
+                        <input type="file" name="txtImg" id="txtImg">
+                        <input type="hidden" name="txtRepuesto" id="txtRepuesto">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Agregar Imagen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
-    Function modificar(nombre) {
-        Location.href = '/buscar_modificar/' + nombre + '/';
+    function galeria(nombre) {
+        document.getElementById("nom_repuesto").innerHTML = nombre;
+        document.getElementById("txtRepuesto").value = nombre;
     }
-    Function eliminar(nombre) {
+    function modificar(nombre) {
+        location.href = '/buscar_modificar/' + nombre + '/';
+    }
+    function eliminar(nombre) {
         var opcion = confirm("desea eliminar el registro " + nombre + "?");
         if (opcion == true) {
             location.href = '/eliminar/' + nombre + '/';
@@ -141,12 +176,28 @@
 
     }
 </script>
+{% endblock contenido %}
 
--->
+
+
+
+
+<!--
 {% block JS %}
 
+<script>
+    Function modificar(nombre) {
+        Location.href = '/buscar_modificar/' + nombre + '/';
+    }
+    Function eliminar(nombre) {
+        var opcion = confirm('desea eliminar el registro ' + nombre + '?');
+        if (opcion == true) {
+            location.href = '/eliminar/' + nombre + '/';
+        }
 
-
+    }
+</script>
+-->
 
 {% endblock JS %}
 
