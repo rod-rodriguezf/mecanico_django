@@ -13,6 +13,10 @@
 {% endblock css %}
 
 
+{% block banner %}
+<img src="{% static 'img/banner.jpg' %}" class="d-block w-100" height="550" alt="">
+{% endblock banner %}
+
 {% block galeria %}
 
 <!--========================================================== -->
@@ -37,9 +41,18 @@
                     class="text-dark fw-bold">{{repuesto.descripcion}}</span></h4>
             <h4 class="text-primary fw-bold">Marca Repuestos: <span class="text-dark fw-bold">{{repuesto.marcas}}</span>
             </h4>
+            {% if user.is_authenticated %}
+            <button type="submit" onclick="javascript:location.href='/vender_rep/{{repuesto.nombre}}/'"
+                class=" btn btn-primary w-100 fs-5">Comprar</button>
+            {% else %}
+            {% endif %}
         </div>
     </div>
 </section>
+<div class="mb-3">
+    <h3 class="text-center text-dark pt-5 mb-4"><span
+            class="text-primary">{{mensaje}}</span></h3>
+</div>
 {% endblock galeria %}
 
 

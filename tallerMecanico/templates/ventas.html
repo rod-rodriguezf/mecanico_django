@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="{% static 'css/registrarse.css' %}">
 {% endblock css %}
 
-
+{% block banner %}
+<img src="{% static 'img/banner.jpg' %}" class="d-block w-100" height="550" alt="">
+{% endblock banner %}
 
 {% block contenido %}
 <!--========================================================== -->
@@ -71,7 +73,8 @@
     </div>
 </section>
 <div class="d-flex flex-column justify-content-center align-items-center pt-5  text-center w-50 m-auto">
-    <h2 class="p-3 fs-4">Tabla de Administracion de Repuestos</h2>
+    <h2 class="p-3 fs-4">Tabla de Administracion de Repuestos <span class="text-primary">(Cantidad de Repuestos:
+            {{cant}})</span></h2>
 </div>
 <div class="">
     <table class="table table-dark table-hover">

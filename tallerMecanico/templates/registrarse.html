@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="{% static 'css/registrarse.css' %}">
 {% endblock css %}
 
+{% block banner %}
+<img src="{% static 'img/banner.jpg' %}" class="d-block w-100" height="550" alt="">
+{% endblock banner %}
 
 {% block contenido %}
 <!--========================================================== -->
@@ -24,7 +27,7 @@
 
 
 
-  <form action="" method="POST" onsubmit="return validarPass()">
+  <form action="{% url 'REGISTRARSE' %}" method="POST" onsubmit="return validarPass()">
     {% csrf_token %}
     <div class="mb-3">
       <input type="input" class="form-control" id="txtUsuario" name="txtUsuario" placeholder="ingrese Usuario">

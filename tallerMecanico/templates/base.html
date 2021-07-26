@@ -47,9 +47,6 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'INDEX' %}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'TRABAJOS' %}">Trabajos</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'GALE_VENTAS' %}">galeria repuestos</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -67,6 +64,9 @@
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ADMIN_USER' %}">Mis Productos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'VENTAS' %}">Adm. Repuestos</a>
                     </li>
                     <li class="nav-item">
@@ -75,9 +75,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="">Bienvenido: {{user.first_name}} {{user.last_name}}</a>
                     </li>
-                    
+
                     {% else %}
-                    
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -97,85 +97,15 @@
         </div>
     </nav>
 
-    <!--========================================================== -->
-    <!-- SLIDER DE IMAGENES-->
-    <!--========================================================== -->
-
-    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="3000">
-                <img src="{% static 'img/reparacion_neumatico.jpg' %}" class="d-block w-100" height="550" alt="">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="fw-bold">Cambio de neumatico</h5>
-                    <p class="fw-bold">Reparacion o cambio de los neumaticos averiados.</p>
-                    <a href="{% url 'MANTENCION1' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
-                </div>
-            </div>
 
 
-            <div class="carousel-item" data-bs-interval="3000">
-                <img src="{% static 'img/cambio_aceite.jpg' %}" class="d-block w-100" height="550" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="fw-bold">Cambio de aceite</h5>
-                    <p class="fw-bold">Renovacion del aceite del vehiculo para mantener el motor en buen estado.</p>
-                    <a href="{% url 'MANTENCION2' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
-                </div>
-            </div>
+{% block slider %}
 
+{% endblock slider %}
 
-            <div class="carousel-item" data-bs-interval="3000">
-                <img src="{% static 'img/Alineacion.jpg' %}" class="d-block w-100" height="550" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="fw-bold">Alineacion y balanceo</h5>
-                    <p class="fw-bold">Se procede a alinear y balancear las llantas para que giren sin tener vibraciones
-                        a
-                        determinadas velocidades.</p>
-                    <a href="{% url 'MANTENCION3' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
-                </div>
-            </div>
+{% block banner %}
 
-            <div class="carousel-item" data-bs-interval="3000">
-                <img src="{% static 'img/scanner.jpg' %}" class="d-block w-100" height="550" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="fw-bold">Scanner</h5>
-                    <p class="fw-bold">El scanner Automotriz es una herramienta que nos permite detectar las fallas
-                        electricas de
-                        un vehiculo.</p>
-                    <a href="{% url 'MANTENCION4' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
-                </div>
-            </div>
-
-            <div class="carousel-item" data-bs-interval="3000">
-                <img src="{% static 'img/limpieza.jpg' %}" class="d-block w-100" height="550" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="fw-bold">Limpieza</h5>
-                    <p class="fw-bold">Se hace un aseo profundo del vehiculo para dejarlo como nuevo.</p>
-                    <a href="{% url 'MANTENCION5' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
-                </div>
-            </div>
-
-            <div class="carousel-item" data-bs-interval="3000">
-                <img src="{% static 'img/kilometraje.jpg' %}" class="d-block w-100" height="550" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5 class="fw-bold">Revision del kilometraje</h5>
-                    <p class="fw-bold">Recomendamos periodimante hacer una revision del kilometraje de tu vehiculo donde
-                        examinamos el funcionamiento general de tu auto.</p>
-                    <a href="{% url 'MANTENCION6' %}" class="btn btn-primary fw-bold text-light">Leer mas...</a>
-                </div>
-            </div>
-
-
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
+{% endblock banner %}
 
 
     <!--========================================================== -->

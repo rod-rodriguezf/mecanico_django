@@ -19,6 +19,8 @@ class Repuesto(models.Model):
     imagen = models.ImageField(upload_to='repuestos', null=True)
     publicar = models.BooleanField(default=False)
     comentario = models.TextField(default='--')
+    usuario = models.CharField(null=True, max_length=100)
+    duenno = models.CharField(max_length=100, default='--')
 
     def __str__(self):
         return self.nombre

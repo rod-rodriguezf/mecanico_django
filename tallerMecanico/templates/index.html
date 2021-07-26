@@ -9,6 +9,48 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock css %}
 
+{% block slider %}
+<!--========================================================== -->
+<!-- SLIDER DE IMAGENES-->
+<!--========================================================== -->
+
+<div id="carousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="3000">
+      <img src="{% static 'img/reparacion_neumatico.jpg' %}" class="d-block w-100" height="550" alt="">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="fw-bold text-primary">Los ultimos Repuestos Publicados</h5>
+        <p class="fw-bold text-danger">Repuestos Publicados con sus respectivos nombres y descripcion</p>
+      </div>
+    </div>
+
+    {% for reg in repuestos %}
+    <div class="carousel-item" data-bs-interval="3000">
+      <img src="{{reg.imagen.url}}" class="d-block w-100" height="550" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h5 class="fw-bold text-primary">{{reg.nombre}}</h5>
+        <p class="fw-bold text-danger">{{reg.descripcion}}</p>
+        <a href="{% url 'DETA_REPUES' reg.nombre %}" class="btn btn-primary fw-bold text-light">Ver
+          Detalle...</a>
+      </div>
+    </div>
+    {% endfor %}
+
+
+
+
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+{% endblock slider %}
 
 {% block contenido %}
 <!--========================================================== -->

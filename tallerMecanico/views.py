@@ -6,21 +6,41 @@ from django.contrib.auth.models import User
 # IMPORTAR UNA LIBRERIA DE AUTENTIFICACION
 from django.contrib.auth import authenticate, logout, login
 # IMPORTAR LIBRERIA DECORADORA QUE EVITA EL INGRESO A LAS PAGINAS SIN AUTORIZACION
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 
 
 def index(request):
-    return render(request, "index.html")
-
-
-def trabajos(request):
-    return render(request, "trabajos.html")
+    marca = Marca.objects.all()
+    repuestos = Repuesto.objects.filter(publicar=True).order_by('-nombre')[:6]
+    contexto = {"repuestos": repuestos, "marca": marca}
+    return render(request, "index.html", contexto)
 
 
 def registrarse(request):
-    return render(request, "registrarse.html")
+    mensaje = ""
+    if request.POST:
+        usuario = request.POST.get("txtUsuario")
+        nombre = request.POST.get("txtNombre")
+        apellido = request.POST.get("txtApellido")
+        email = request.POST.get("txtEmail")
+        pass1 = request.POST.get("txtPass1")
+
+        try:
+            usu = User.objects.get(username=usuario)
+            mensaje = "Usuario ya existe"
+        except:
+            usu = User()
+            usu.username = usuario
+            usu.first_name = nombre
+            usu.last_name = apellido
+            usu.email = email
+            usu.set_password(pass1)
+            usu.save()
+            mensaje = "Usuario creado"
+    contexto = {"mensaje": mensaje}
+    return render(request, "registrarse.html", contexto)
 
 
 def cerrar_sesion(request):
@@ -45,8 +65,9 @@ def iniciar(request):
 
 def galeria_ventas(request):
     repuestos = Repuesto.objects.filter(publicar=True)
+    cant = Repuesto.objects.filter(publicar=True).count()
     marca = Marca.objects.all()
-    contexto = {"repuestos": repuestos, "marca": marca}
+    contexto = {"repuestos": repuestos, "marca": marca, "cantidad": cant}
     return render(request, "galeria_ventas.html", contexto)
 
 
@@ -91,8 +112,10 @@ def detalle_repuestos(request, id):
 
 
 @login_required(login_url='/iniciar/')
+@permission_required('tallerMecanico.add_repuesto', login_url='/iniciar/')
 def ventas_repuestos(request):
     mensaje = ""
+    usuario_actual = request.user.username
     if request.POST:
         nombre = request.POST.get("txtNombre")
         precio = request.POST.get("txtPrecio")
@@ -105,41 +128,22 @@ def ventas_repuestos(request):
             precio=precio,
             descripcion=desc,
             imagen=imagen,
-            marcas=object_categoria
+            marcas=object_categoria,
+            usuario=usuario_actual
         )
         rep.save()
         mensaje = "grabo"
     marca = Marca.objects.all()
-    repuestos = Repuesto.objects.all()
-    contexto = {"marca": marca, "mensaje": mensaje, "repuestos": repuestos}
+    usuario_actual = request.user.username
+    repuestos = Repuesto.objects.filter(usuario=usuario_actual)
+    cant = Repuesto.objects.filter(usuario=usuario_actual).count()
+    contexto = {"marca": marca, "mensaje": mensaje,
+                "repuestos": repuestos, "cant": cant}
     return render(request, "ventas.html", contexto)
 
 
-def mantencion1(request):
-    return render(request, "mantencion1.html")
-
-
-def mantencion2(request):
-    return render(request, "mantencion2.html")
-
-
-def mantencion3(request):
-    return render(request, "mantencion3.html")
-
-
-def mantencion4(request):
-    return render(request, "mantencion4.html")
-
-
-def mantencion5(request):
-    return render(request, "mantencion5.html")
-
-
-def mantencion6(request):
-    return render(request, "mantencion6.html")
-
-
 @login_required(login_url='/iniciar/')
+@permission_required('tallerMecanico.delete_repuesto', login_url='/iniciar/')
 def eliminar(request, id):
     try:
         rep = Repuesto.objects.get(nombre=id)
@@ -149,16 +153,18 @@ def eliminar(request, id):
         mensaje = "no se elimino el registro"
 
     marca = Marca.objects.all()
-    repuestos = Repuesto.objects.all()
+    repuestos = Repuesto.objects.filter(usuario=request.user.username)
     contexto = {"marca": marca, "mensaje": mensaje, "repuestos": repuestos}
     return render(request, "ventas.html", contexto)
 
+
 @login_required(login_url='/iniciar/')
+@permission_required('tallerMecanico.view_repuesto', login_url='/iniciar/')
 def buscar_modificar(request, id):
     try:
         rep = Repuesto.objects.get(nombre=id)
         marca = Marca.objects.all()
-        contexto = {"marca": marca,"repuesto": rep}
+        contexto = {"marca": marca, "repuesto": rep}
         return render(request, "modificar.html", contexto)
     except:
         mensaje = "no se elimino el registro"
@@ -168,7 +174,9 @@ def buscar_modificar(request, id):
     contexto = {"marca": marca, "mensaje": mensaje, "repuestos": repuestos}
     return render(request, "ventas.html", contexto)
 
+
 @login_required(login_url='/iniciar/')
+@permission_required('tallerMecanico.change_repuesto', login_url='/iniciar/')
 def modificar(request):
     mensaje = ""
     if request.POST:
@@ -179,20 +187,56 @@ def modificar(request):
         imagen = request.FILES.get("txtmg")
         object_categoria = Marca.objects.get(nombre=cate)
         try:
-            rep =Repuesto.objects.get(nombre=nombre)
+            rep = Repuesto.objects.get(nombre=nombre)
             rep.precio = precio
-            rep.descripcion=desc
-            rep.marcas=object_categoria
+            rep.descripcion = desc
+            rep.marcas = object_categoria
 
             if imagen is not None:
-                rep.imagen=imagen
-            
-            rep.comentario='--'
+                rep.imagen = imagen
+
+            rep.comentario = '--'
             rep.save()
             mensaje = "Modifico"
         except:
             mensaje = "No Modifico"
     marca = Marca.objects.all()
-    repuestos = Repuesto.objects.all()
+    repuestos = Repuesto.objects.filter(usuario=request.user.username)
     contexto = {"marca": marca, "mensaje": mensaje, "repuestos": repuestos}
     return render(request, "ventas.html", contexto)
+
+
+def vender_rep(request, id):
+    mensaje = ""
+    try:
+        rep = Repuesto.objects.filter(publicar=True).get(nombre=id)
+        rep.duenno = request.user.username
+        rep.publicar = False
+        rep.save()
+        mensaje = "Gracias por su compra"
+    except:
+        mensaje = "Error en la compra"
+    repuesto = Repuesto.objects.get(nombre=id)
+    contexto = {"repuesto": repuesto, "mensaje": mensaje}
+    return render(request, "ficha.html", contexto)
+
+
+def admin_user(request):
+    repuesto = Repuesto.objects.filter(duenno=request.user.username)
+    contexto = {"repuesto": repuesto}
+    return render(request, "admin_user.html", contexto)
+
+
+def devolver(request, id):
+    mensaje = ""
+    try:
+        rep = Repuesto.objects.filter(publicar=False).get(nombre=id)
+        rep.duenno = '--'
+        rep.save()
+        mensaje = "Repuesto Devuelto con exito"
+    except:
+        mensaje = "Error en la Devolucion"
+
+    repuesto = Repuesto.objects.filter(duenno=request.user.username)
+    contexto = {"repuesto": repuesto, "mensaje": mensaje}
+    return render(request, "admin_user.html", contexto)
