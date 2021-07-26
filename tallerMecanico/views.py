@@ -1,3 +1,4 @@
+from django.http import response
 from .models import Marca, Repuesto, Galeria
 from django.shortcuts import render
 
@@ -266,3 +267,4 @@ def insertar_galeria(request):
     contexto = {"marca": marca, "mensaje": mensaje,
                 "repuestos": repuestos, "cant": cant}
     return render(request, "ventas.html", contexto)
+
