@@ -152,3 +152,47 @@ def eliminar(request, id):
     repuestos = Repuesto.objects.all()
     contexto = {"marca": marca, "mensaje": mensaje, "repuestos": repuestos}
     return render(request, "ventas.html", contexto)
+
+@login_required(login_url='/iniciar/')
+def buscar_modificar(request, id):
+    try:
+        rep = Repuesto.objects.get(nombre=id)
+        marca = Marca.objects.all()
+        contexto = {"marca": marca,"repuesto": rep}
+        return render(request, "modificar.html", contexto)
+    except:
+        mensaje = "no se elimino el registro"
+
+    marca = Marca.objects.all()
+    repuestos = Repuesto.objects.all()
+    contexto = {"marca": marca, "mensaje": mensaje, "repuestos": repuestos}
+    return render(request, "ventas.html", contexto)
+
+@login_required(login_url='/iniciar/')
+def modificar(request):
+    mensaje = ""
+    if request.POST:
+        nombre = request.POST.get("txtNombre")
+        precio = request.POST.get("txtPrecio")
+        desc = request.POST.get("txtDesc")
+        cate = request.POST.get("cboCategoria")
+        imagen = request.FILES.get("txtmg")
+        object_categoria = Marca.objects.get(nombre=cate)
+        try:
+            rep =Repuesto.objects.get(nombre=nombre)
+            rep.precio = precio
+            rep.descripcion=desc
+            rep.marcas=object_categoria
+
+            if imagen is not None:
+                rep.imagen=imagen
+            
+            rep.comentario='--'
+            rep.save()
+            mensaje = "Modifico"
+        except:
+            mensaje = "No Modifico"
+    marca = Marca.objects.all()
+    repuestos = Repuesto.objects.all()
+    contexto = {"marca": marca, "mensaje": mensaje, "repuestos": repuestos}
+    return render(request, "ventas.html", contexto)

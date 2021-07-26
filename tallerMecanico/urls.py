@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import eliminar, cerrar_sesion, filtro_marc, buscar_repuesto, filtro_marcas, galeria_ventas, index, trabajos, registrarse, iniciar, mantencion1, mantencion2, mantencion3, mantencion4, mantencion5, mantencion6, ventas_repuestos, galeria_ventas, detalle_repuestos
+from .views import modificar,buscar_modificar,eliminar, cerrar_sesion, filtro_marc, buscar_repuesto, filtro_marcas, galeria_ventas, index, trabajos, registrarse, iniciar, mantencion1, mantencion2, mantencion3, mantencion4, mantencion5, mantencion6, ventas_repuestos, galeria_ventas, detalle_repuestos
 
 urlpatterns = [
     path('', index, name='INDEX'),
@@ -21,5 +21,7 @@ urlpatterns = [
     path('filtro_marc/<id>/', filtro_marc, name="FILTRO_MARC"),
     path('cerrar_sesion/', cerrar_sesion, name="CERRAR_SESION"),
     path('eliminar/<id>/', eliminar, name="ELIMINAR"),
+    path('buscar_modificar/<id>/', buscar_modificar, name="BUSCARM"),
+    path('modificar/',modificar,name="MODI"),
 
 ]

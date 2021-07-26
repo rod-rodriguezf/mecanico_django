@@ -97,10 +97,11 @@
                 <td><img class="" src="{{item.imagen.url}}" alt="" width="100px" height="100px"></td>
                 <td>
                     <div class="mb-3">
-                        <button type="submit" class=" btn btn-primary w-100 fs-6">Modificar</button>
+                        <button type="submit" class=" btn btn-primary w-100 fs-6"
+                            onclick="modificar('{{item.nombre}}')">Modificar</button>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class=" btn btn-danger w-100 fs-6" id="eliminar"
+                        <button type="submit" class=" btn btn-danger w-100 fs-6" id="eliminar" value="eliminar"
                             onclick="eliminar('{{item.nombre}}')">Eliminar</button>
                     </div>
                 </td>
@@ -125,9 +126,10 @@
 
 {% endblock contenido %}
 <!--
-{% block JS %}
-
 <script>
+    Function modificar(nombre) {
+        Location.href = '/buscar_modificar/' + nombre + '/';
+    }
     Function eliminar(nombre) {
         var opcion = confirm("desea eliminar el registro " + nombre + "?");
         if (opcion == true) {
@@ -137,9 +139,14 @@
     }
 </script>
 
+-->
+{% block JS %}
+
+
+
 
 {% endblock JS %}
--->
+
 
 
 {% block scripst %}
